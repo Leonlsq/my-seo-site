@@ -40,7 +40,7 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          # 核心修改：使用你自己的 GitHub 用户名和绑定的真实邮箱，绕过 Vercel 对 Author 的拦截
+          # 使用你自己的 GitHub 用户名和绑定的真实邮箱，绕过 Vercel 对 Author 的拦截
           git config --global user.name "Leonlsq"
           git config --global user.email "leonlsqi@gmail.com"
           git add src/markdown/
@@ -50,7 +50,7 @@ jobs:
             echo "No new articles generated. Skipping commit."
           else
             git commit -m "🤖 Auto-generated new trending articles"
-            # 在 push 前先拉取远端可能产生的新提交，并通过 rebase 合并
-            git pull --rebase origin main
+            # 在 push 前先拉取远端可能产生的新提交，遇到同名文件冲突时自动保留最新生成的版本
+            git pull --rebase -X theirs origin main
             git push origin main
           fi
