@@ -7,7 +7,7 @@ import re
 
 # 1. 配置 DeepSeek API
 client = OpenAI(
-    api_key="sk-d1de4edb4e3a469bb16ea3c496eac741",
+    api_key=os.environ.get("DEEPSEEK_API_KEY"),
     base_url="https://api.deepseek.com"
 )
 
@@ -106,7 +106,7 @@ def generate_seo_article(topic):
 
 
 def main():
-    ARTICLE_COUNT = 3
+    ARTICLE_COUNT = 30
 
     topics = get_trending_topics(limit=ARTICLE_COUNT)
 
