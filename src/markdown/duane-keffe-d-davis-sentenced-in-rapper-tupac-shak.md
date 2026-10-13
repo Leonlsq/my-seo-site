@@ -1,6 +1,6 @@
 ---
 title: "Complete Guide: What You Need to Know About Duane 'Keffe D' Davis sentenced in rapper Tupac Shakur's murder"
-description: "Trending now: A deep dive into Duane "Keffe D" Davis sentenced in rapper Tupac Shakur's murder. Read our comprehensive analysis and latest updates."
+description: "Trending now: A deep dive into Duane 'Keffe D' Davis sentenced in rapper Tupac Shakur's murder. Read our comprehensive analysis and latest updates."
 tags: ["Trending", "News", "Deep Dive"]
 ---
 
