@@ -1,6 +1,6 @@
 ---
-// 获取所有 markdown 文章
-const posts = await Astro.glob('../markdown/*.md');
+// 使用 Vite 底层的 import.meta.glob 同步加载文件
+const posts = Object.values(import.meta.glob('../markdown/*.md', { eager: true }));
 
 // 将文章按日期或加载顺序反转，让最新的排在最前面
 const sortedPosts = posts.reverse();
