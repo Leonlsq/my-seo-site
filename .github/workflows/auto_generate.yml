@@ -2,12 +2,17 @@ name: Auto Generate Trending Articles
 
 on:
   schedule:
-    # 每天世界标准时间(UTC) 0点 和 12点运行一次（你可以随时改这个频率）
+    # 每天世界标准时间(UTC) 0点 和 12点运行一次
     - cron: '0 0,12 * * *'
-  workflow_dispatch: # 开启手动触发按钮，方便我们随时测试
+  workflow_dispatch: # 开启手动触发按钮，方便随时测试
+
+# 并发控制，防止多个任务同时跑完互相抢占 push
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
-  contents: write # 赋予机器人写入和提交代码的权限
+  contents: write # 赋予写入和提交代码的权限
 
 jobs:
   generate_and_publish:
@@ -23,23 +28,29 @@ jobs:
           python-version: '3.10'
 
       - name: Install Dependencies
-        # 请确保下方 pip install 后面列出了你 Python 脚本用到的所有第三方库
         run: |
           python -m pip install --upgrade pip
           pip install requests openai beautifulsoup4
           
       - name: Run Auto Generation Script
         env:
-          # 将 GitHub 保险箱里的密码注入给 Python 脚本使用
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }} 
         run: |
           python auto_trend_generate.py
 
       - name: Commit and Push Changes
         run: |
-          git config --global user.name "AutoPublisher"
-          git config --global user.email "hello@scraping-trends.com"
+          # 核心修改：使用你自己的 GitHub 用户名和绑定的真实邮箱，绕过 Vercel 对 Author 的拦截
+          git config --global user.name "Leonlsq"
+          git config --global user.email "leonlsqi@gmail.com"
           git add src/markdown/
           
-          # 检查是否有新文件，如果有则提交并推送，没有则跳过避免报错
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-generated new trending articles" && git push)
+          # 检查暂存区是否有变动
+          if git diff --staged --quiet; then
+            echo "No new articles generated. Skipping commit."
+          else
+            git commit -m "🤖 Auto-generated new trending articles"
+            # 在 push 前先拉取远端可能产生的新提交，并通过 rebase 合并
+            git pull --rebase origin main
+            git push origin main
+          fi
