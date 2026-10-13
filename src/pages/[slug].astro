@@ -1,7 +1,9 @@
 ---
 export async function getStaticPaths() {
-  const posts = await Astro.glob('../markdown/*.md');
-  return posts.map(post => ({
+  // 使用 Vite 底层的 import.meta.glob 同步加载文件
+  const posts = Object.values(import.meta.glob('../markdown/*.md', { eager: true }));
+  
+  return posts.map((post: any) => ({
     params: { 
       slug: post.file.split('/').pop().replace('.md', '') 
     },
