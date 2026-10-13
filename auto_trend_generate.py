@@ -4,6 +4,8 @@ from openai import OpenAI
 import os
 import time
 import re
+import random
+from datetime import datetime
 
 # 1. 配置 DeepSeek API
 client = OpenAI(
@@ -16,78 +18,88 @@ OUTPUT_DIR = "src/markdown"
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
-# 3. 改用极其稳定的 Google News RSS
+# 2. 混合多个高质量长尾/垂直领域的 RSS 数据源 (重点优化: 流量生命周期更长)
+RSS_FEEDS = [
+    "https://techcrunch.com/feed/",  # TechCrunch 科技创投前沿
+    "https://www.reddit.com/r/technology/top.rss?t=day",  # Reddit 真实科技热点
+    "https://www.reddit.com/r/pcgaming/top.rss?t=day",  # Reddit 游戏长尾问题
+    "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en"  # 谷歌综合新闻 (保底)
+]
 
 
-def get_trending_topics(limit=5):
-    print("🌐 正在连接 Google News RSS 获取今日全球热点...")
-    # 谷歌新闻美国区头条，官方 RSS，极度稳定绝对不会 404
-    # 如果想做德国市场，可以换成: https://news.google.com/rss?hl=de&gl=DE&ceid=DE:de
-    url = "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en"
+def get_mixed_topics(limit=30):
+    print("🌐 正在从多个垂直领域抓取热点话题...")
+    topics = []
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    }
 
-    try:
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-        }
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
+    for url in RSS_FEEDS:
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            response.raise_for_status()
+            root = ET.fromstring(response.content)
 
-        root = ET.fromstring(response.content)
-        topics = []
+            # 抓取标题
+            for item in root.findall('.//item/title') + root.findall('.//entry/title'):
+                if item.text:
+                    clean_title = re.sub(r'\s*-.*$', '', item.text)  # 清理尾部媒体名
+                    # 过滤掉太短的废话标题
+                    if clean_title not in topics and len(clean_title) > 15:
+                        topics.append(clean_title)
+        except Exception as e:
+            print(f"⚠️ 抓取 {url} 失败: {e}")
+            continue
 
-        # 提取新闻标题，并清洗掉末尾的媒体名称 (例如 "- CNN" 或 "- BBC")
-        for item in root.findall('.//channel/item/title'):
-            if item.text:
-                clean_title = re.sub(r'\s*-.*$', '', item.text)
-                if clean_title not in topics:
-                    topics.append(clean_title)
-
-        topics = topics[:limit]
-        print(f"🔥 成功获取 {len(topics)} 个热点话题: {topics}")
-        return topics
-
-    except Exception as e:
-        print(f"获取热点失败: {e}")
-        return []
+    # 随机打乱话题，保证每天生成的文章领域多样化
+    random.shuffle(topics)
+    final_topics = topics[:limit]
+    print(f"🔥 成功获取 {len(final_topics)} 个精选热点话题！")
+    return final_topics
 
 
 def generate_seo_article(topic):
-    # 【核心防崩补丁】将话题中的双引号强制转换为单引号，专门用于 YAML 头部，防止 Vercel 解析报错
+    # 防崩补丁：清理可能破坏 YAML 的双引号
     safe_yaml_topic = topic.replace('"', "'")
 
+    # 重点优化: 自动注入当前时间 (YYYY-MM-DD 格式)
+    current_date = datetime.now().strftime("%Y-%m-%d")
+
     prompt = f"""
-        You are an expert tech and news blogger. 
-        The current trending topic is "{topic}". 
-        Write a highly detailed, engaging, and SEO-optimized comprehensive guide.
+        You are an expert tech, gaming, and news blogger. 
+        The current trending topic/keyword is "{topic}". 
+        Write a highly detailed, engaging, and SEO-optimized comprehensive guide or analysis.
         
         CRITICAL RULES:
-        1. Output EXACTLY in Markdown format.
-        2. MUST include YAML Frontmatter at the beginning. DO NOT use double quotes inside the title and description values.
-        3. Write AT LEAST 600 words. Make it detailed to increase user time-on-page.
-        4. Use multiple H2 (##) and H3 (###) headings to structure the content.
+        1. Output EXACTLY in valid Markdown format.
+        2. MUST include YAML Frontmatter at the beginning. 
+        3. NO DOUBLE QUOTES inside the YAML values to prevent build errors. Use single quotes if needed.
+        4. Write AT LEAST 600 words. Use H2 (##) and H3 (###) headings.
+        5. Craft an irresistible, highly clickable, and human-like SEO headline (under 65 characters) for the `title` frontmatter. DO NOT use repetitive prefixes like "Complete Guide:". Make it sound natural and click-worthy.
 
-        Follow this exact structure:
+        Follow this exact structure for the Frontmatter:
 
         ---
-        title: "Complete Guide: What You Need to Know About {safe_yaml_topic}"
-        description: "Trending now: A deep dive into {safe_yaml_topic}. Read our comprehensive analysis and latest updates."
-        tags: ["Trending", "News", "Deep Dive"]
+        title: [Your engaging, highly clickable SEO headline here]
+        description: [A compelling meta description under 150 characters summarizing the article]
+        pubDate: {current_date}
+        tags: ['Trending', 'Tech', 'Guide']
         ---
 
-        ## Introduction to {topic}
-        [Write 2-3 engaging paragraphs explaining the core of the trend]
+        ## [Catchy H2 Heading related to {topic}]
+        [Write 2-3 engaging paragraphs explaining the core of the trend, issue, or problem]
 
-        ## Key Highlights and Breakdown
-        [Provide detailed context, using bullet points for readability]
+        ## [Detailed Breakdown / Step-by-Step Solutions / Key Highlights]
+        [Provide detailed context, solutions, or analysis. Use bullet points or numbered lists for readability]
 
-        ## Why is Everyone Talking About This?
+        ## Why is Everyone Talking About This? (or Impact Analysis)
         [Analyze the public reaction, market impact, or social significance]
 
         ## Frequently Asked Questions (FAQ)
-        ### What does this mean for the future?
-        [Answer explicitly]
-        ### Who are the main people or entities involved?
-        [Answer explicitly]
+        ### [Relevant Question 1]?
+        [Answer]
+        ### [Relevant Question 2]?
+        [Answer]
 
         ## Final Thoughts
         [A strong concluding paragraph summarizing the key takeaways]
@@ -97,7 +109,7 @@ def generate_seo_article(topic):
         response = client.chat.completions.create(
             model="deepseek-chat",
             messages=[
-                {"role": "system", "content": "You are a professional SEO content writer."},
+                {"role": "system", "content": "You are a professional SEO content writer and technical blogger."},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7
@@ -110,8 +122,7 @@ def generate_seo_article(topic):
 
 def main():
     ARTICLE_COUNT = 30
-
-    topics = get_trending_topics(limit=ARTICLE_COUNT)
+    topics = get_mixed_topics(limit=ARTICLE_COUNT)
 
     if not topics:
         print("未能获取到热点词，程序退出。")
@@ -123,15 +134,18 @@ def main():
         md_content = generate_seo_article(topic)
 
         if md_content:
-            # 清理特殊字符，并将过长的标题截断（最多50个字符），防止文件系统报错
+            # 清理特殊字符生成文件名，并过滤连续的横杠
             safe_filename = "".join([c if c.isalnum() or c.isspace(
             ) else "" for c in topic.lower()]).replace(" ", "-")
-            safe_filename = safe_filename[:50].strip('-')
+            safe_filename = re.sub(r'-+', '-', safe_filename)[:50].strip('-')
             filepath = os.path.join(OUTPUT_DIR, f"{safe_filename}.md")
 
             if md_content.startswith("```markdown"):
                 md_content = md_content.replace(
                     "```markdown\n", "").replace("\n```", "")
+            elif md_content.startswith("```"):
+                md_content = md_content.replace(
+                    "```\n", "").replace("\n```", "")
 
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(md_content)
@@ -140,7 +154,7 @@ def main():
 
         time.sleep(2)
 
-    print("🎉 今日热点内容抓取与生成全部完成！")
+    print("🎉 今日高质量 SEO 内容抓取与生成全部完成！")
 
 
 if __name__ == "__main__":
