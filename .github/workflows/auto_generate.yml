@@ -37,8 +37,8 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "AutoPublisher"
+          git config --global user.email "hello@scraping-trends.com"
           git add src/markdown/
           
           # 检查是否有新文件，如果有则提交并推送，没有则跳过避免报错
