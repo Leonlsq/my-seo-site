@@ -1,0 +1,46 @@
+---
+export async function getStaticPaths() {
+  // 使用原生的 import.meta.glob 替代 Astro.glob
+  const posts = import.meta.glob('../markdown/*.md', { eager: true });
+  
+  return Object.entries(posts).map(([filePath, post]) => {
+    // 从路径提取文件名作为网页链接后缀 (slug)
+    const fileName = filePath.split('/').pop().replace('.md', '');
+    return {
+      params: { slug: fileName },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+// 读取 Markdown 生成的内容和顶部数据
+const { Content, frontmatter } = post as any;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{frontmatter.title}</title>
+    <meta name="description" content={frontmatter.description} />
+    <style>
+      body { font-family: system-ui, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 2rem; color: #333; }
+      h1 { color: #1a1a1a; }
+      .ad-banner { background: #f4f4f4; border: 1px dashed #ccc; padding: 1rem; text-align: center; margin: 2rem 0; color: #666;}
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" style="color: blue; text-decoration: none;">← 返回首页</a>
+    </header>
+
+    <main>
+      <h1>{frontmatter.title}</h1>
+      <div class="ad-banner">
+        💡 赞助商广告位：点击这里下载【极速游戏加速器】，彻底告别闪退！
+      </div>
+      <Content />
+    </main>
+  </body>
+</html>
