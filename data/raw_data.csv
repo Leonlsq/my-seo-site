@@ -1,0 +1,4 @@
+Error_Code,Software,Raw_Context
+0xC0000005,League of Legends,玩家抱怨游戏加载到100%时突然闪退，官方论坛有人说是内存访问冲突或杀毒软件误杀。
+ERR_CONNECTION_RESET,Google Chrome,浏览器打不开网页，提示连接重置，可能是网络代理或缓存问题。
+SMAPI_CRASH_21,Stardew Valley,打了50个Mod后启动游戏红字报错，好像是某个农场地图模组版本不兼容导致。
