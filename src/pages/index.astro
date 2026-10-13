@@ -1,16 +1,46 @@
 ---
+// 读取所有生成的 Markdown 文章
+const posts = import.meta.glob('../markdown/*.md', { eager: true });
+
+const postList = Object.entries(posts).map(([filePath, post]) => {
+  const slug = filePath.split('/').pop().replace('.md', '');
+  return {
+    slug,
+    frontmatter: (post as any).frontmatter
+  };
+});
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Global Trending News & Guides</title>
+    
+    <!-- 💰 你的专属 Google AdSense 全局自动广告脚本 (首页也部署，不错过任何流量) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2463933664995777" crossorigin="anonymous"></script>
+
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; line-height: 1.6; }
+      ul { list-style-type: none; padding: 0; }
+      li { margin-bottom: 1rem; padding: 1rem; border: 1px solid #eee; border-radius: 8px; }
+      a { color: #0056b3; text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+      a:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <h1>🔥 Latest Trending Topics</h1>
+    <p>Welcome to our automated news and troubleshooting center.</p>
+    
+    <!-- 自动生成所有文章的超链接，让 Google 爬虫顺藤摸瓜 -->
+    <ul>
+      {postList.map(post => (
+        <li>
+          <a href={`/${post.slug}`}>{post.frontmatter.title}</a>
+          <p>{post.frontmatter.description}</p>
+        </li>
+      ))}
+    </ul>
+  </body>
 </html>

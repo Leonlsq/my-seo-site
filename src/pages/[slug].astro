@@ -22,9 +22,8 @@ const { Content, frontmatter } = post as any;
     <title>{frontmatter.title}</title>
     <meta name="description" content={frontmatter.description} />
     
-    <!-- 💰 Google AdSense 全局自动广告脚本 (新加入) -->
-    <!-- 注意：等你申请了 AdSense，把下面链接里的 ca-pub-xxx 换成你自己的真实 ID -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+    <!-- 💰 你的专属 Google AdSense 全局自动广告脚本 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2463933664995777" crossorigin="anonymous"></script>
 
     <style>
       body { font-family: system-ui, sans-serif; line-height: 1.8; max-width: 800px; margin: 0 auto; padding: 2rem; color: #333; }
@@ -42,7 +41,6 @@ const { Content, frontmatter } = post as any;
     <main>
       <h1>{frontmatter.title}</h1>
       
-      <!-- 删除了之前所有的手工 Affiliate 广告位 -->
       <!-- 网页正文渲染区：Google 的 AI 会自动在这里面的段落之间穿插广告 -->
       <Content />
     </main>
