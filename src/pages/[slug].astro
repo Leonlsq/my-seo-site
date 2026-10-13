@@ -1,10 +1,8 @@
 ---
 export async function getStaticPaths() {
-  // 使用原生的 import.meta.glob 替代 Astro.glob
   const posts = import.meta.glob('../markdown/*.md', { eager: true });
   
   return Object.entries(posts).map(([filePath, post]) => {
-    // 从路径提取文件名作为网页链接后缀 (slug)
     const fileName = filePath.split('/').pop().replace('.md', '');
     return {
       params: { slug: fileName },
@@ -14,7 +12,6 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-// 读取 Markdown 生成的内容和顶部数据
 const { Content, frontmatter } = post as any;
 ---
 
@@ -24,28 +21,29 @@ const { Content, frontmatter } = post as any;
     <meta name="viewport" content="width=device-width" />
     <title>{frontmatter.title}</title>
     <meta name="description" content={frontmatter.description} />
+    
+    <!-- 💰 Google AdSense 全局自动广告脚本 (新加入) -->
+    <!-- 注意：等你申请了 AdSense，把下面链接里的 ca-pub-xxx 换成你自己的真实 ID -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+
     <style>
-      body { font-family: system-ui, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 2rem; color: #333; }
-      h1 { color: #1a1a1a; }
-      .ad-banner { background: #f4f4f4; border: 1px dashed #ccc; padding: 1rem; text-align: center; margin: 2rem 0; color: #666;}
-      /* 给链接加一点样式，让它看起来更像一个可点击的按钮 */
-      .ad-banner a { color: #0056b3; font-weight: bold; text-decoration: underline; }
-      .ad-banner a:hover { color: #ff4500; }
+      body { font-family: system-ui, sans-serif; line-height: 1.8; max-width: 800px; margin: 0 auto; padding: 2rem; color: #333; }
+      h1 { color: #1a1a1a; font-size: 2.2rem; margin-bottom: 1rem;}
+      h2 { color: #222; margin-top: 2rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
+      /* 增加了行高和段落间距，让文章看起来更长，便于 Google 自动插入广告 */
+      p { margin-bottom: 1.5rem; }
     </style>
   </head>
   <body>
-    <header>
-      <a href="/" style="color: blue; text-decoration: none;">← 返回首页</a>
+    <header style="margin-bottom: 2rem;">
+      <a href="/" style="color: blue; text-decoration: none; font-weight: bold;">← Back to Home</a>
     </header>
 
     <main>
       <h1>{frontmatter.title}</h1>
       
-        <!-- 你的专属 Make Affiliate 广告位 -->
-        <div class="ad-banner">
-        💡 Want to automate your own workflow? Try Make.com for free today! <a href="https://www.make.com/en/register?pc=automatethatwithai" target="_blank" rel="noopener noreferrer">Click here</a>
-        </div>
-        
+      <!-- 删除了之前所有的手工 Affiliate 广告位 -->
+      <!-- 网页正文渲染区：Google 的 AI 会自动在这里面的段落之间穿插广告 -->
       <Content />
     </main>
   </body>
