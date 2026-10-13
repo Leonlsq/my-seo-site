@@ -52,6 +52,9 @@ def get_trending_topics(limit=5):
 
 
 def generate_seo_article(topic):
+    # 【核心防崩补丁】将话题中的双引号强制转换为单引号，专门用于 YAML 头部，防止 Vercel 解析报错
+    safe_yaml_topic = topic.replace('"', "'")
+
     prompt = f"""
         You are an expert tech and news blogger. 
         The current trending topic is "{topic}". 
@@ -59,15 +62,15 @@ def generate_seo_article(topic):
         
         CRITICAL RULES:
         1. Output EXACTLY in Markdown format.
-        2. MUST include YAML Frontmatter at the beginning.
+        2. MUST include YAML Frontmatter at the beginning. DO NOT use double quotes inside the title and description values.
         3. Write AT LEAST 600 words. Make it detailed to increase user time-on-page.
         4. Use multiple H2 (##) and H3 (###) headings to structure the content.
 
         Follow this exact structure:
 
         ---
-        title: "Complete Guide: What You Need to Know About {topic}"
-        description: "Trending now: A deep dive into {topic}. Read our comprehensive analysis and latest updates."
+        title: "Complete Guide: What You Need to Know About {safe_yaml_topic}"
+        description: "Trending now: A deep dive into {safe_yaml_topic}. Read our comprehensive analysis and latest updates."
         tags: ["Trending", "News", "Deep Dive"]
         ---
 
