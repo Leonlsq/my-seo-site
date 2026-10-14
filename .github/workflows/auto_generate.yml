@@ -3,7 +3,7 @@ name: Auto Generate Trending Articles
 on:
   schedule:
     # 每天世界标准时间(UTC) 0点 和 12点运行一次
-    - cron: '0 0,12 * * *'
+    - cron: '23 0,12 * * *'
   workflow_dispatch: # 开启手动触发按钮，方便随时测试
 
 # 并发控制，防止多个任务同时跑完互相抢占 push

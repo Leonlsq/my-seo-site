@@ -19,10 +19,14 @@ OUTPUT_DIR = "src/markdown"
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
-# 2. 聚焦高搜索意图（排障、教程、硬件、AI与极客工具）的垂直 RSS 源，避开大众新闻巨头
+# 2. 聚焦高搜索意图（排障、教程、硬件、AI与极客工具）的垂直 RSS 源
+# 新增了 BleepingComputer、Tom's Hardware 和 Ars Technica，防止 GitHub 机房 IP 被 Reddit 限流时无米下锅
 RSS_FEEDS = [
     "https://techcrunch.com/feed/",
     "https://hnrss.org/newest?points=100",
+    "https://www.bleepingcomputer.com/feed/",
+    "https://www.tomshardware.com/feeds/all",
+    "https://arstechnica.com/feed/",
     "https://www.reddit.com/r/pcgaming/top.rss?t=day",
     "https://www.reddit.com/r/techsupport/top.rss?t=day",
     "https://www.reddit.com/r/LocalLLaMA/top.rss?t=day",
@@ -39,23 +43,34 @@ def clean_html(raw_html):
     return re.sub(r'\s+', ' ', text)[:800]  # 截取前 800 字符作为核心背景，节省 Token
 
 
-def get_mixed_topics(limit=25):
+def get_mixed_topics():
+    """抓取所有候选话题并打乱顺序（不在此处截断数量，留到 main 中去重后再计数）"""
     print("🌐 正在从多个垂直领域抓取高价值话题与上下文...")
     items_data = []
     seen_titles = set()
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    }
 
     for url in RSS_FEEDS:
+        # 针对 Reddit 使用符合其 API 规范的自定义 UA，降低 GitHub Actions 机房 IP 被 403 拦截的概率
+        if "reddit.com" in url:
+            headers = {
+                'User-Agent': 'linux:my-seo-site-bot:v1.0 (by /u/Leonlsq)'
+            }
+        else:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+            }
+
         try:
-            response = requests.get(url, headers=headers, timeout=10)
+            response = requests.get(url, headers=headers, timeout=12)
             response.raise_for_status()
             root = ET.fromstring(response.content)
 
             # 兼容标准 RSS (<item>) 和 Atom (<entry>) 格式
-            entries = root.findall('.//item') + root.findall(
-                './/{http://www.w3.org/2005/Atom}entry') + root.findall('.//entry')
+            entries = (
+                root.findall('.//item') +
+                root.findall('.//{http://www.w3.org/2005/Atom}entry') +
+                root.findall('.//entry')
+            )
 
             for entry in entries:
                 title_el = entry.find('title') or entry.find(
@@ -84,9 +99,8 @@ def get_mixed_topics(limit=25):
             continue
 
     random.shuffle(items_data)
-    final_items = items_data[:limit]
-    print(f"🔥 成功获取 {len(final_items)} 个带上下文的精选话题！")
-    return final_items
+    print(f"🔥 成功抓取到 {len(items_data)} 个带上下文的候选话题！")
+    return items_data
 
 
 def make_clean_slug(title, max_words=8):
@@ -168,31 +182,37 @@ tags: ['Tech', 'Guide', 'Troubleshooting']
         )
         return response.choices[0].message.content
     except Exception as e:
-        print(f"生成文章失败 {topic}: {e}")
+        print(f"❌ 生成文章失败 {topic}: {e}")
         return None
 
 
 def main():
-    ARTICLE_COUNT = 20  # 贵精不贵多，每天 2 times * 20 篇 = 40 篇高质量长尾文章足够
-    items = get_mixed_topics(limit=ARTICLE_COUNT)
+    TARGET_NEW_ARTICLES = 20  # 每次运行确保真正新生成满 20 篇文章才停止
+    items = get_mixed_topics()
 
     if not items:
         print("未能获取到热点词，程序退出。")
         return
 
-    for i, item in enumerate(items):
+    generated_count = 0
+
+    for item in items:
+        if generated_count >= TARGET_NEW_ARTICLES:
+            break
+
         topic = item["title"]
         safe_slug = make_clean_slug(topic, max_words=8)
         if not safe_slug:
             continue
         filepath = os.path.join(OUTPUT_DIR, f"{safe_slug}.md")
 
-        # 本地去重：如果已经生成过同名文章，直接跳过，省钱且防冲突
+        # 本地去重：如果已经生成过同名文章，直接跳过，且不占用本次的 20 篇生成名额
         if os.path.exists(filepath):
-            print(f"⏭️ [{i+1}/{len(items)}] 已存在，跳过: {filepath}")
+            print(f"⏭️ 已存在，跳过: {filepath}")
             continue
 
-        print(f"✍️ [{i+1}/{len(items)}] 正在撰写长尾 SEO 文章: {topic}")
+        print(
+            f"✍️ [{generated_count + 1}/{TARGET_NEW_ARTICLES}] 正在撰写长尾 SEO 文章: {topic}")
         md_content = generate_seo_article(item)
 
         if md_content:
@@ -204,11 +224,12 @@ def main():
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(md_content)
 
+            generated_count += 1
             print(f"✅ 生成完毕: {filepath}")
 
         time.sleep(2)
 
-    print("🎉 今日高转化长尾 SEO 内容抓取与生成全部完成！")
+    print(f"🎉 今日高转化长尾 SEO 内容抓取与生成全部完成！本次共新增 {generated_count} 篇文章。")
 
 
 if __name__ == "__main__":
