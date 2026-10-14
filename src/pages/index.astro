@@ -1,17 +1,67 @@
 ---
-// 使用 Vite 底层的 import.meta.glob 同步加载文件
-const posts = Object.values(import.meta.glob('../markdown/*.md', { eager: true }));
+// 使用 Vite 底层的 import.meta.glob 同步加载所有 Markdown 文件
+const posts = Object.values(import.meta.glob('../markdown/*.md', { eager: true })) as any[];
 
-// 将文章按日期或加载顺序反转，让最新的排在最前面
-const sortedPosts = posts.reverse();
+// 核心修复：真正按照文章的 pubDate 日期降序排列（最新的排在最前面）
+const sortedPosts = posts.sort((a, b) => {
+  const dateA = new Date(a.frontmatter?.pubDate || '1970-01-01').getTime();
+  const dateB = new Date(b.frontmatter?.pubDate || '1970-01-01').getTime();
+  return dateB - dateA;
+});
+
+const siteTitle = "Scraping Trends | Tech Guides, Troubleshooting & Deep-Dive Analysis";
+const siteDescription = "Actionable tech tutorials, step-by-step troubleshooting fixes, hardware comparisons, and daily trending analysis.";
+const siteURL = "https://www.scraping-trends.com";
+
+// 构建首页 WebSite 与最新文章列表 (ItemList) 的 JSON-LD 结构化数据
+const homeSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteURL}/#website`,
+      "url": siteURL,
+      "name": "Scraping Trends",
+      "description": siteDescription,
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "ItemList",
+      "itemListElement": sortedPosts.slice(0, 15).map((post, index) => {
+        const slug = post.file.split('/').pop().replace('.md', '');
+        return {
+          "@type": "ListItem",
+          "position": index + 1,
+          "url": `${siteURL}/${slug}`,
+          "name": post.frontmatter?.title || slug
+        };
+      })
+    }
+  ]
+};
 ---
 
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Global Trending News</title>
-    <!-- 你的 Google AdSense 代码保留在这里 -->
+    <title>{siteTitle}</title>
+
+    <!-- 核心 SEO Meta 标签 -->
+    <meta name="description" content={siteDescription} />
+    <link rel="canonical" href={siteURL} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph 标签 -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:url" content={siteURL} />
+
+    <!-- 注入首页 JSON-LD 结构化数据 -->
+    <script type="application/ld+json" set:html={JSON.stringify(homeSchema)} />
+
+    <!-- Google AdSense 代码 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2463933664995777" crossorigin="anonymous"></script>
     
     <style>
@@ -37,12 +87,12 @@ const sortedPosts = posts.reverse();
         .header p {
             color: #666;
             margin-top: 10px;
+            font-size: 1.1rem;
         }
         
         /* 核心网格布局 */
         .grid-container {
             display: grid;
-            /* 自动响应式：屏幕宽时展示多列，手机上自动变单列 */
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
             max-width: 1200px;
@@ -60,11 +110,10 @@ const sortedPosts = posts.reverse();
             color: inherit;
             display: flex;
             flex-direction: column;
-            transition: all 0.2s ease-in-out; /* 悬停动画过渡 */
+            transition: all 0.2s ease-in-out;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
         
-        /* 鼠标悬停时的浮雕效果 */
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 20px rgba(0,0,0,0.08);
@@ -92,7 +141,7 @@ const sortedPosts = posts.reverse();
             font-size: 0.95rem;
             line-height: 1.6;
             margin: 0 0 20px 0;
-            flex-grow: 1; /* 让描述部分撑开，使底部标签对齐 */
+            flex-grow: 1;
         }
 
         .tags {
@@ -112,25 +161,24 @@ const sortedPosts = posts.reverse();
 </head>
 <body>
     <div class="header">
-        <h1>🔥 Global Trending Topics</h1>
-        <p>Your source for the latest tech, gaming, and breaking news.</p>
+        <h1>🔥 Tech Guides & Trending Insights</h1>
+        <p>Actionable tutorials, troubleshooting fixes, hardware comparisons, and deep-dive tech analysis.</p>
     </div>
 
     <div class="grid-container">
         {sortedPosts.map(post => {
-            // 提取文件名作为路由链接
             const slug = post.file.split('/').pop().replace('.md', '');
+            const tags = Array.isArray(post.frontmatter?.tags) ? post.frontmatter.tags : [];
             
             return (
                 <a href={`/${slug}`} class="card">
                     <div class="card-meta">
-                        <!-- 展示我们刚加入的 pubDate -->
-                        <span>📅 {post.frontmatter.pubDate || 'Just now'}</span>
+                        <span>📅 {post.frontmatter?.pubDate || 'Just now'}</span>
                     </div>
-                    <h2>{post.frontmatter.title}</h2>
-                    <p>{post.frontmatter.description}</p>
+                    <h2>{post.frontmatter?.title}</h2>
+                    <p>{post.frontmatter?.description}</p>
                     <div class="tags">
-                        {post.frontmatter.tags && post.frontmatter.tags.map((tag: unknown) => (
+                        {tags.map((tag: string) => (
                             <span class="tag">#{tag}</span>
                         ))}
                     </div>
