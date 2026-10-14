@@ -9,6 +9,8 @@ const sortedPosts = posts.sort((a, b) => {
   return dateB - dateA;
 });
 
+const totalPosts = sortedPosts.length;
+
 const siteTitle = "Scraping Trends | Tech Guides, Troubleshooting & Deep-Dive Analysis";
 const siteDescription = "Actionable tech tutorials, step-by-step troubleshooting fixes, hardware comparisons, and daily trending analysis.";
 const siteURL = "https://www.scraping-trends.com";
@@ -74,10 +76,10 @@ const homeSchema = {
         }
         .header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px 20px 30px 20px;
             background-color: #fff;
             border-bottom: 1px solid #eaeaea;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         .header h1 {
             margin: 0;
@@ -88,6 +90,88 @@ const homeSchema = {
             color: #666;
             margin-top: 10px;
             font-size: 1.1rem;
+        }
+
+        /* 顶部工具栏：统计 + 搜索 + 排序 */
+        .toolbar {
+            max-width: 1200px;
+            margin: 0 auto 25px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stats-badge {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: #555;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+        .stats-badge strong {
+            color: #111;
+            font-weight: 600;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            flex-grow: 1;
+            justify-content: flex-end;
+            max-width: 600px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex-grow: 1;
+            min-width: 220px;
+        }
+
+        .search-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 16px 10px 38px;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background-color: #fff;
+            color: #333;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .search-input:focus {
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.12);
+        }
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 0.95rem;
+            pointer-events: none;
+        }
+
+        .sort-select {
+            padding: 10px 14px;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .sort-select:focus {
+            border-color: #0969da;
         }
         
         /* 核心网格布局 */
@@ -157,6 +241,33 @@ const homeSchema = {
             border-radius: 20px;
             font-weight: 500;
         }
+
+        /* 搜索无结果提示 */
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #666;
+        }
+        .no-results h3 {
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .controls {
+                max-width: 100%;
+            }
+            .stats-badge {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -165,18 +276,55 @@ const homeSchema = {
         <p>Actionable tutorials, troubleshooting fixes, hardware comparisons, and deep-dive tech analysis.</p>
     </div>
 
-    <div class="grid-container">
-        {sortedPosts.map(post => {
+    <!-- 统计、搜索与排序工具栏 -->
+    <div class="toolbar">
+        <div class="stats-badge">
+            Showing <strong id="visibleCount">{totalPosts}</strong> of <strong>{totalPosts}</strong> articles
+        </div>
+
+        <div class="controls">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input 
+                    type="search" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search guides, errors, hardware..." 
+                    aria-label="Search articles"
+                />
+            </div>
+
+            <select id="sortSelect" class="sort-select" aria-label="Sort articles by date">
+                <option value="newest">📅 Newest First</option>
+                <option value="oldest">⏳ Oldest First</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 文章网格容器 -->
+    <div class="grid-container" id="postsGrid">
+        {sortedPosts.map((post, index) => {
             const slug = post.file.split('/').pop().replace('.md', '');
             const tags = Array.isArray(post.frontmatter?.tags) ? post.frontmatter.tags : [];
+            const title = post.frontmatter?.title || '';
+            const desc = post.frontmatter?.description || '';
+            const pubDate = post.frontmatter?.pubDate || '1970-01-01';
+            const timestamp = new Date(pubDate).getTime() || 0;
+            const searchContent = `${title} ${desc} ${tags.join(' ')}`.toLowerCase();
             
             return (
-                <a href={`/${slug}`} class="card">
+                <a 
+                    href={`/${slug}`} 
+                    class="card"
+                    data-date={timestamp}
+                    data-index={index}
+                    data-search={searchContent}
+                >
                     <div class="card-meta">
                         <span>📅 {post.frontmatter?.pubDate || 'Just now'}</span>
                     </div>
-                    <h2>{post.frontmatter?.title}</h2>
-                    <p>{post.frontmatter?.description}</p>
+                    <h2>{title}</h2>
+                    <p>{desc}</p>
                     <div class="tags">
                         {tags.map((tag: string) => (
                             <span class="tag">#{tag}</span>
@@ -186,5 +334,65 @@ const homeSchema = {
             )
         })}
     </div>
+
+    <!-- 搜索无结果占位提示 -->
+    <div id="noResults" class="no-results">
+        <h3>No matching articles found</h3>
+        <p>Try searching with different keywords or clearing the search filter.</p>
+    </div>
+
+    <!-- 客户端即时搜索与排序脚本 -->
+    <script is:inline>
+        const searchInput = document.getElementById('searchInput');
+        const sortSelect = document.getElementById('sortSelect');
+        const postsGrid = document.getElementById('postsGrid');
+        const visibleCountEl = document.getElementById('visibleCount');
+        const noResultsEl = document.getElementById('noResults');
+        const cards = Array.from(postsGrid.querySelectorAll('.card'));
+
+        function filterAndSortPosts() {
+            const query = searchInput.value.trim().toLowerCase();
+            const sortOrder = sortSelect.value;
+
+            // 1. 按发布日期（及原始顺序兜底）排序
+            cards.sort((a, b) => {
+                const dateA = Number(a.dataset.date) || 0;
+                const dateB = Number(b.dataset.date) || 0;
+                if (dateA !== dateB) {
+                    return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+                }
+                // 同一天发布的文章，保持构建时的默认相对顺序
+                const idxA = Number(a.dataset.index) || 0;
+                const idxB = Number(b.dataset.index) || 0;
+                return sortOrder === 'newest' ? idxA - idxB : idxB - idxA;
+            });
+
+            // 2. 重新挂载排序后的节点并执行关键词过滤
+            let visibleCount = 0;
+            const fragment = document.createDocumentFragment();
+
+            cards.forEach(card => {
+                const content = card.dataset.search || '';
+                const isMatch = !query || content.includes(query);
+
+                if (isMatch) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+                fragment.appendChild(card);
+            });
+
+            postsGrid.appendChild(fragment);
+
+            // 3. 更新统计数字与空状态展示
+            visibleCountEl.textContent = String(visibleCount);
+            noResultsEl.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        searchInput.addEventListener('input', filterAndSortPosts);
+        sortSelect.addEventListener('change', filterAndSortPosts);
+    </script>
 </body>
 </html>
