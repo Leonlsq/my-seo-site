@@ -1,6 +1,6 @@
 ---
-title: MI5 Chief's Brexit Warning Shakes Up Spy Narrative
-description: MI5 chief warns against overstating Russian interference in Brexit vote, sparking debate on intelligence, politics, and truth.
+title: "MI5 Chief's Brexit Warning Shakes Up Spy Narrative"
+description: "MI5 chief warns against overstating Russian interference in Brexit vote, sparking debate on intelligence, politics, and truth."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

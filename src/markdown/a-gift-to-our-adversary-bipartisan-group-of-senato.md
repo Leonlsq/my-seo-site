@@ -1,6 +1,6 @@
 ---
-title: Senators Slam Trump's Russian Diesel Deal as a Gift to Adversary
-description: Bipartisan senators blast Trump's Russian diesel deal, calling it a gift to an adversary. Here is the full breakdown of the controversy.
+title: "Senators Slam Trump's Russian Diesel Deal as a Gift to Adversary"
+description: "Bipartisan senators blast Trump's Russian diesel deal, calling it a gift to an adversary. Here is the full breakdown of the controversy."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

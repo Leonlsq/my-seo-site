@@ -1,6 +1,6 @@
 ---
-title: Meet the 2026 Startup Battlefield Top 20 Finalists
-description: From lab-grown organs to orbital debris cleanup, here is the full breakdown of the 2026 Startup Battlefield Top 20 and why investors are watching.
+title: "Meet the 2026 Startup Battlefield Top 20 Finalists"
+description: "From lab-grown organs to orbital debris cleanup, here is the full breakdown of the 2026 Startup Battlefield Top 20 and why investors are watching."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

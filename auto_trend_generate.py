@@ -18,12 +18,12 @@ OUTPUT_DIR = "src/markdown"
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
-# 2. 混合多个高质量长尾/垂直领域的 RSS 数据源 (重点优化: 流量生命周期更长)
+# 2. 混合多个高质量长尾/垂直领域的 RSS 数据源
 RSS_FEEDS = [
-    "https://techcrunch.com/feed/",  # TechCrunch 科技创投前沿
-    "https://www.reddit.com/r/technology/top.rss?t=day",  # Reddit 真实科技热点
-    "https://www.reddit.com/r/pcgaming/top.rss?t=day",  # Reddit 游戏长尾问题
-    "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en"  # 谷歌综合新闻 (保底)
+    "https://techcrunch.com/feed/",
+    "https://www.reddit.com/r/technology/top.rss?t=day",
+    "https://www.reddit.com/r/pcgaming/top.rss?t=day",
+    "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en"
 ]
 
 
@@ -40,29 +40,38 @@ def get_mixed_topics(limit=30):
             response.raise_for_status()
             root = ET.fromstring(response.content)
 
-            # 抓取标题
             for item in root.findall('.//item/title') + root.findall('.//entry/title'):
                 if item.text:
-                    clean_title = re.sub(r'\s*-.*$', '', item.text)  # 清理尾部媒体名
-                    # 过滤掉太短的废话标题
+                    clean_title = re.sub(r'\s*-.*$', '', item.text)
                     if clean_title not in topics and len(clean_title) > 15:
                         topics.append(clean_title)
         except Exception as e:
             print(f"⚠️ 抓取 {url} 失败: {e}")
             continue
 
-    # 随机打乱话题，保证每天生成的文章领域多样化
     random.shuffle(topics)
     final_topics = topics[:limit]
     print(f"🔥 成功获取 {len(final_topics)} 个精选热点话题！")
     return final_topics
 
 
-def generate_seo_article(topic):
-    # 防崩补丁：清理可能破坏 YAML 的双引号
-    safe_yaml_topic = topic.replace('"', "'")
+def sanitize_frontmatter(md_text):
+    """代码级防崩清洗：强制将 title 和 description 用双引号包裹，内部双引号全部转为单引号"""
+    lines = md_text.splitlines()
+    if lines and lines[0].strip() == "---":
+        for i in range(1, min(10, len(lines))):
+            if lines[i].strip() == "---":
+                break
+            if lines[i].startswith(("title:", "description:")):
+                key, val = lines[i].split(":", 1)
+                # 去除首尾多余空格和引号，并将内部所有双引号替换为单引号
+                val = val.strip().strip('"').strip("'").replace('"', "'")
+                # 统一在最外层包裹标准双引号，彻底免疫冒号(: )和特殊符号报错
+                lines[i] = f'{key}: "{val}"'
+    return "\n".join(lines)
 
-    # 重点优化: 自动注入当前时间 (YYYY-MM-DD 格式)
+
+def generate_seo_article(topic):
     current_date = datetime.now().strftime("%Y-%m-%d")
 
     prompt = f"""
@@ -72,16 +81,16 @@ def generate_seo_article(topic):
         
         CRITICAL RULES:
         1. Output EXACTLY in valid Markdown format.
-        2. MUST include YAML Frontmatter at the beginning. 
-        3. NO DOUBLE QUOTES inside the YAML values to prevent build errors. Use single quotes if needed.
+        2. MUST include YAML Frontmatter at the beginning.
+        3. Always wrap title and description values in double quotes, and ONLY use single quotes inside them.
         4. Write AT LEAST 600 words. Use H2 (##) and H3 (###) headings.
-        5. Craft an irresistible, highly clickable, and human-like SEO headline (under 65 characters) for the `title` frontmatter. DO NOT use repetitive prefixes like "Complete Guide:". Make it sound natural and click-worthy.
+        5. Craft an irresistible, highly clickable, and human-like SEO headline (under 65 characters) for the `title` frontmatter. DO NOT use repetitive prefixes like "Complete Guide:".
 
         Follow this exact structure for the Frontmatter:
 
         ---
-        title: [Your engaging, highly clickable SEO headline here]
-        description: [A compelling meta description under 150 characters summarizing the article]
+        title: "[Your engaging, highly clickable SEO headline here]"
+        description: "[A compelling meta description under 150 characters summarizing the article]"
         pubDate: {current_date}
         tags: ['Trending', 'Tech', 'Guide']
         ---
@@ -134,7 +143,6 @@ def main():
         md_content = generate_seo_article(topic)
 
         if md_content:
-            # 清理特殊字符生成文件名，并过滤连续的横杠
             safe_filename = "".join([c if c.isalnum() or c.isspace(
             ) else "" for c in topic.lower()]).replace(" ", "-")
             safe_filename = re.sub(r'-+', '-', safe_filename)[:50].strip('-')
@@ -146,6 +154,9 @@ def main():
             elif md_content.startswith("```"):
                 md_content = md_content.replace(
                     "```\n", "").replace("\n```", "")
+
+            # 在写入文件前，强制执行代码级 YAML 头部清洗
+            md_content = sanitize_frontmatter(md_content)
 
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(md_content)

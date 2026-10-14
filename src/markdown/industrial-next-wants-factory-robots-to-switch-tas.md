@@ -1,6 +1,6 @@
 ---
-title: Industrial Next Wants Robots to Switch Tasks in Minutes
-description: Discover how Industrial Next is slashing robot reprogramming from weeks to minutes, and why this shift could redefine modern manufacturing.
+title: "Industrial Next Wants Robots to Switch Tasks in Minutes"
+description: "Discover how Industrial Next is slashing robot reprogramming from weeks to minutes, and why this shift could redefine modern manufacturing."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

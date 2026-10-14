@@ -1,6 +1,6 @@
 ---
-title: He Got Rejected by SpaceX and Google. Now His Code Flies With Them.
-description: A rejected developer built software that now runs on a SpaceX rocket alongside Google tech. Here is the full story behind this viral underdog moment.
+title: "He Got Rejected by SpaceX and Google. Now His Code Flies With Them."
+description: "A rejected developer built software that now runs on a SpaceX rocket alongside Google tech. Here is the full story behind this viral underdog moment."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Space', 'Startups']
 ---

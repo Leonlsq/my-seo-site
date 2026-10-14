@@ -1,6 +1,6 @@
 ---
-title: Licube Is Building the Fuel Pipeline for Fusion's Big Moment
-description: At TechCrunch Disrupt, Licube pitched itself as the fuel supplier for fusion power, aiming to solve the industry's critical tritium bottleneck.
+title: "Licube Is Building the Fuel Pipeline for Fusion's Big Moment"
+description: "At TechCrunch Disrupt, Licube pitched itself as the fuel supplier for fusion power, aiming to solve the industry's critical tritium bottleneck."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

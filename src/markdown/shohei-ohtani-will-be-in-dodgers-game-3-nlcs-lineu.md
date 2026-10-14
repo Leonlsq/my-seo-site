@@ -1,6 +1,6 @@
 ---
-title: Shohei Ohtani Cleared for Game 3 and the Dodgers Are Back
-description: Dave Roberts confirms Shohei Ohtani will return to the Dodgers lineup for Game 3 of the NLCS. Here is what it means for LA.
+title: "Shohei Ohtani Cleared for Game 3 and the Dodgers Are Back"
+description: "Dave Roberts confirms Shohei Ohtani will return to the Dodgers lineup for Game 3 of the NLCS. Here is what it means for LA."
 pubDate: 2026-10-14
 tags: ['Trending', 'MLB', 'Dodgers']
 ---

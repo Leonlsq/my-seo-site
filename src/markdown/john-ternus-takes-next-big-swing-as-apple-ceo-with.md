@@ -1,6 +1,6 @@
 ---
-title: John Ternus Bets Big on HomeView Tablet as Apple CEO
-description: John Ternus makes his first major product move as Apple CEO with the HomeView tablet, a bold smart home hub set to reshape Apple's ecosystem.
+title: "John Ternus Bets Big on HomeView Tablet as Apple CEO"
+description: "John Ternus makes his first major product move as Apple CEO with the HomeView tablet, a bold smart home hub set to reshape Apple's ecosystem."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

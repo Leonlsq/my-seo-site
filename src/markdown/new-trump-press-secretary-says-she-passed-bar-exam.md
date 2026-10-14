@@ -1,6 +1,6 @@
 ---
-title: 'Bar Exam in China? New Trump Press Secretary Sparks Debate'
-description: 'New Trump press secretary claims she passed China bar exam, sparking viral debate on credentials, legal systems, and political spin.'
+title: "'Bar Exam in China? New Trump Press Secretary Sparks Debate'"
+description: "'New Trump press secretary claims she passed China bar exam, sparking viral debate on credentials, legal systems, and political spin.'"
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

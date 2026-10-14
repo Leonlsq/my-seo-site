@@ -1,6 +1,6 @@
 ---
-title: Facebook Finally Lets You Fix Your Own Feed
-description: Facebook is giving users more control over the algorithm. Here is how the new feed controls work and why it changes everything.
+title: "Facebook Finally Lets You Fix Your Own Feed"
+description: "Facebook is giving users more control over the algorithm. Here is how the new feed controls work and why it changes everything."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

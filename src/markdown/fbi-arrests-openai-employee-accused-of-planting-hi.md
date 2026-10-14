@@ -1,6 +1,6 @@
 ---
-title: FBI Arrests OpenAI Employee Over Hidden Conference Room Device
-description: An OpenAI staffer faces federal charges after the FBI found a hidden recording device in a conference room. Here is what we know so far.
+title: "FBI Arrests OpenAI Employee Over Hidden Conference Room Device"
+description: "An OpenAI staffer faces federal charges after the FBI found a hidden recording device in a conference room. Here is what we know so far."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

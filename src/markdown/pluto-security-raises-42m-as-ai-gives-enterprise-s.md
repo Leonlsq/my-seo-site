@@ -1,6 +1,6 @@
 ---
-title: Pluto Security Raises $42M to Fight AI's Newest Threat
-description: Pluto Security lands $42M to tackle AI-driven attacks that are overwhelming enterprise security teams and reshaping cyber defense.
+title: "Pluto Security Raises $42M to Fight AI's Newest Threat"
+description: "Pluto Security lands $42M to tackle AI-driven attacks that are overwhelming enterprise security teams and reshaping cyber defense."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

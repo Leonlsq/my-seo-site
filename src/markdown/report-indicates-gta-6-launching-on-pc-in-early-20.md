@@ -1,6 +1,6 @@
 ---
-title: GTA 6 on PC in 2027? The New Report Everyone's Talking About
-description: A new report claims GTA 6 could hit PC in early 2027. Here's what it means, why it matters, and what you should expect.
+title: "GTA 6 on PC in 2027? The New Report Everyone's Talking About"
+description: "A new report claims GTA 6 could hit PC in early 2027. Here's what it means, why it matters, and what you should expect."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

@@ -1,6 +1,6 @@
 ---
-title: Cerebras CEO Says AI Doomsday Talk Is Overblown
-description: Cerebras CEO Andrew Feldman pushes back on AI doomsday warnings, arguing that fearmongering distorts policy and slows real innovation.
+title: "Cerebras CEO Says AI Doomsday Talk Is Overblown"
+description: "Cerebras CEO Andrew Feldman pushes back on AI doomsday warnings, arguing that fearmongering distorts policy and slows real innovation."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

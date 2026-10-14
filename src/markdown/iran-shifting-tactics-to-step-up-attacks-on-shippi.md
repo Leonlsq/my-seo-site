@@ -1,6 +1,6 @@
 ---
-title: Iran's New Playbook: Shipping Attacks Before the US Vote
-description: Officials say Iran is shifting tactics to ramp up attacks on shipping before the US vote. Here's what it means for global trade and security.
+title: "Iran's New Playbook: Shipping Attacks Before the US Vote"
+description: "Officials say Iran is shifting tactics to ramp up attacks on shipping before the US vote. Here's what it means for global trade and security."
 pubDate: 2026-10-14
 tags: ['Trending', 'Geopolitics', 'Guide']
 ---

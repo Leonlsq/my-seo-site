@@ -1,6 +1,6 @@
 ---
-title: Mini Organs in Space Could Revolutionize Human Health
-description: Tiny lab-grown organs are launching to the ISS to study aging and disease, promising breakthroughs for astronauts and patients on Earth.
+title: "Mini Organs in Space Could Revolutionize Human Health"
+description: "Tiny lab-grown organs are launching to the ISS to study aging and disease, promising breakthroughs for astronauts and patients on Earth."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

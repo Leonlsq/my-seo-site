@@ -1,6 +1,6 @@
 ---
-title: China’s Exports Jump 36% Thanks to AI Demand
-description: China’s exports surged 36% driven by an AI hardware boom. We break down the data, the tech behind it, and what it means for the global economy.
+title: "China’s Exports Jump 36% Thanks to AI Demand"
+description: "China’s exports surged 36% driven by an AI hardware boom. We break down the data, the tech behind it, and what it means for the global economy."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

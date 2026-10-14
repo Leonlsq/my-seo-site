@@ -1,6 +1,6 @@
 ---
-title: MIT Startup Turns Diesel Trucks Into Hydrogen Haulers
-description: An MIT spinout claims it can convert diesel trucks into cheaper hydrogen haulers. Here is how the tech works and why it matters.
+title: "MIT Startup Turns Diesel Trucks Into Hydrogen Haulers"
+description: "An MIT spinout claims it can convert diesel trucks into cheaper hydrogen haulers. Here is how the tech works and why it matters."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

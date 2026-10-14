@@ -1,6 +1,6 @@
 ---
-title: Your Own AI Butler Is Closer Than You Think
-description: Cerebras CEO predicts personal AI assistants in every home soon. Here is what that future looks like and why it matters.
+title: "Your Own AI Butler Is Closer Than You Think"
+description: "Cerebras CEO predicts personal AI assistants in every home soon. Here is what that future looks like and why it matters."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

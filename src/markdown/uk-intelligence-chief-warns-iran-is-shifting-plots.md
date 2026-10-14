@@ -1,6 +1,6 @@
 ---
-title: Iran's Spy Games Just Got a Dangerous Upgrade
-description: U.K. intelligence chief warns Iran is pivoting terror plots toward harder targets. Here is what that shift means for security and the public.
+title: "Iran's Spy Games Just Got a Dangerous Upgrade"
+description: "U.K. intelligence chief warns Iran is pivoting terror plots toward harder targets. Here is what that shift means for security and the public."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

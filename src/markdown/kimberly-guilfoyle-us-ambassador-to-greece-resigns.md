@@ -1,6 +1,6 @@
 ---
-title: Kimberly Guilfoyle Resigns: Inside the Greece Ambassador Scandal
-description: Kimberly Guilfoyle resigns as U.S. ambassador to Greece amid misconduct allegations. Here is the full breakdown of the scandal, timeline, and fallout.
+title: "Kimberly Guilfoyle Resigns: Inside the Greece Ambassador Scandal"
+description: "Kimberly Guilfoyle resigns as U.S. ambassador to Greece amid misconduct allegations. Here is the full breakdown of the scandal, timeline, and fallout."
 pubDate: 2026-10-13
 tags: ['Trending', 'News', 'Politics', 'Analysis']
 ---

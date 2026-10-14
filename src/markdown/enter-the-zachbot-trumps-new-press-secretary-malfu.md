@@ -1,6 +1,6 @@
 ---
-title: 'Zachbot Glitches: Press Secretary's Podium Meltdown'
-description: 'Trump's new press secretary malfunctions on podium debut, sparking viral Zachbot memes and a wild debate about AI in politics.'
+title: "'Zachbot Glitches: Press Secretary's Podium Meltdown'"
+description: "'Trump's new press secretary malfunctions on podium debut, sparking viral Zachbot memes and a wild debate about AI in politics.'"
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

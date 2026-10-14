@@ -1,6 +1,6 @@
 ---
-title: A Judge Blocks the Government's Tree — Here's What It Means
-description: A judge just blocked the government's tree removal plan, and the internet is losing it. Here's the full story behind the viral trend.
+title: "A Judge Blocks the Government's Tree — Here's What It Means"
+description: "A judge just blocked the government's tree removal plan, and the internet is losing it. Here's the full story behind the viral trend."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

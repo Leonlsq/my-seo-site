@@ -1,6 +1,6 @@
 ---
-title: Girls Is Coming Back and Fans Are Losing It
-description: HBO confirms a Girls revival with Lena Dunham, Allison Williams, Zosia Mamet, and Jemima Kirke returning. Here is everything we know so far.
+title: "Girls Is Coming Back and Fans Are Losing It"
+description: "HBO confirms a Girls revival with Lena Dunham, Allison Williams, Zosia Mamet, and Jemima Kirke returning. Here is everything we know so far."
 pubDate: 2026-10-13
 tags: ['Trending', 'Entertainment', 'TV']
 ---

@@ -1,6 +1,6 @@
 ---
-title: TechCrunch Disrupt 2026 Day 1 Was Absolutely Wild
-description: TechCrunch Disrupt 2026 Day 1 recap covering the biggest startup launches, AI agent breakthroughs, and investor debates from San Francisco.
+title: "TechCrunch Disrupt 2026 Day 1 Was Absolutely Wild"
+description: "TechCrunch Disrupt 2026 Day 1 recap covering the biggest startup launches, AI agent breakthroughs, and investor debates from San Francisco."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

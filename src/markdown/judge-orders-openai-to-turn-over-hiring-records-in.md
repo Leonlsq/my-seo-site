@@ -1,6 +1,6 @@
 ---
-title: OpenAI Must Hand Over Hiring Records in Apple Secrets Case
-description: A federal judge orders OpenAI to turn over hiring records in Apple's trade secrets lawsuit. Here is what it means for AI talent wars.
+title: "OpenAI Must Hand Over Hiring Records in Apple Secrets Case"
+description: "A federal judge orders OpenAI to turn over hiring records in Apple's trade secrets lawsuit. Here is what it means for AI talent wars."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

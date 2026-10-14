@@ -1,6 +1,6 @@
 ---
-title: Bob Odenkirk Mourns Breaking Bad Co-Star: A Tribute
-description: Bob Odenkirk mourns his Breaking Bad co-star in a heartfelt tribute. Explore the legacy, the friendship, and what this loss means for fans.
+title: "Bob Odenkirk Mourns Breaking Bad Co-Star: A Tribute"
+description: "Bob Odenkirk mourns his Breaking Bad co-star in a heartfelt tribute. Explore the legacy, the friendship, and what this loss means for fans."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

@@ -1,6 +1,6 @@
 ---
-title: Bank Earnings Q3: JPMorgan, Goldman & Citi Smash Records
-description: Q3 bank earnings are in. See how JPMorgan, Goldman Sachs, Wells Fargo, and Citi performed and what it means for markets and investors.
+title: "Bank Earnings Q3: JPMorgan, Goldman & Citi Smash Records"
+description: "Q3 bank earnings are in. See how JPMorgan, Goldman Sachs, Wells Fargo, and Citi performed and what it means for markets and investors."
 pubDate: 2026-10-13
 tags: ['Trending', 'Finance', 'Guide']
 ---

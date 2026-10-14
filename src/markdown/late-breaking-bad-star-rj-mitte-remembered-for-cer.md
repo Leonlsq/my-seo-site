@@ -1,6 +1,6 @@
 ---
-title: RJ Mitte's Powerful Cerebral Palsy Advocacy Explained
-description: Remembering RJ Mitte, the Breaking Bad star who turned Walter White Jr. into a powerful voice for cerebral palsy awareness and disability representation.
+title: "RJ Mitte's Powerful Cerebral Palsy Advocacy Explained"
+description: "Remembering RJ Mitte, the Breaking Bad star who turned Walter White Jr. into a powerful voice for cerebral palsy awareness and disability representation."
 pubDate: 2026-10-13
 tags: ['Trending', 'Entertainment', 'Advocacy']
 ---

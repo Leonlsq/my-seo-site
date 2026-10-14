@@ -1,6 +1,6 @@
 ---
-title: DWTS Shocker: Fan Favorite Eliminated on Super Bowl Night
-description: A fan favorite goes home on Dancing with the Stars as one judge pulls out the rulebook during a tense Super Bowl night scolding.
+title: "DWTS Shocker: Fan Favorite Eliminated on Super Bowl Night"
+description: "A fan favorite goes home on Dancing with the Stars as one judge pulls out the rulebook during a tense Super Bowl night scolding."
 pubDate: 2026-10-14
 tags: ['Trending', 'Entertainment', 'Recap']
 ---

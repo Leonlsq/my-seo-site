@@ -1,6 +1,6 @@
 ---
-title: Bumble's $1.3B Buyout: Dating Apps Hit Reset Button
-description: Bumble agrees to a $1.3B acquisition as online dating faces a major reset. Here's what the deal means for users, investors, and the future of dating apps.
+title: "Bumble's $1.3B Buyout: Dating Apps Hit Reset Button"
+description: "Bumble agrees to a $1.3B acquisition as online dating faces a major reset. Here's what the deal means for users, investors, and the future of dating apps."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

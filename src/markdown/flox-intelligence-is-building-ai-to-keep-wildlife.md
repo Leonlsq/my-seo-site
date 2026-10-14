@@ -1,6 +1,6 @@
 ---
-title: This AI Startup Is Saving Wildlife From Trains and Planes
-description: Flox Intelligence uses AI to steer wildlife away from trains, airports, and roads, cutting collisions and saving billions in damage.
+title: "This AI Startup Is Saving Wildlife From Trains and Planes"
+description: "Flox Intelligence uses AI to steer wildlife away from trains, airports, and roads, cutting collisions and saving billions in damage."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

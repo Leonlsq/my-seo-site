@@ -1,6 +1,6 @@
 ---
-title: FBI Arrests Saudi OpenAI Engineer Over Covert Recording Device
-description: FBI arrests Saudi OpenAI engineer over a covert recording device, DOJ says. Here is what we know about the charges and the tech world fallout.
+title: "FBI Arrests Saudi OpenAI Engineer Over Covert Recording Device"
+description: "FBI arrests Saudi OpenAI engineer over a covert recording device, DOJ says. Here is what we know about the charges and the tech world fallout."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

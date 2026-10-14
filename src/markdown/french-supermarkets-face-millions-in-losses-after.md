@@ -1,6 +1,6 @@
 ---
-title: French Fridges Hacked: Millions Lost in Chilling Cyberattack
-description: A nationwide cyberattack on smart refrigerators has crippled French supermarkets, causing millions in losses and raising alarm over IoT security.
+title: "French Fridges Hacked: Millions Lost in Chilling Cyberattack"
+description: "A nationwide cyberattack on smart refrigerators has crippled French supermarkets, causing millions in losses and raising alarm over IoT security."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

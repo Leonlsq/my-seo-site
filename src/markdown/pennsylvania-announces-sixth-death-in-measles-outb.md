@@ -1,6 +1,6 @@
 ---
-title: Pennsylvania Measles Outbreak Turns Deadly With Sixth Confirmed Death
-description: Pennsylvania confirms a sixth measles death as case counts climb, raising alarms over declining vaccination rates and public health readiness.
+title: "Pennsylvania Measles Outbreak Turns Deadly With Sixth Confirmed Death"
+description: "Pennsylvania confirms a sixth measles death as case counts climb, raising alarms over declining vaccination rates and public health readiness."
 pubDate: 2026-10-13
 tags: ['Trending', 'Health', 'News']
 ---

@@ -1,6 +1,6 @@
 ---
-title: Apple TV 4K and HomePod Mini 2 Hands-On: What's New?
-description: We went hands-on with the new Apple TV 4K and HomePod mini 2. Here's everything you need to know about the specs, features, and real-world performance.
+title: "Apple TV 4K and HomePod Mini 2 Hands-On: What's New?"
+description: "We went hands-on with the new Apple TV 4K and HomePod mini 2. Here's everything you need to know about the specs, features, and real-world performance."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

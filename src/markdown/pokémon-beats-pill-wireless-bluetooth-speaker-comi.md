@@ -1,6 +1,6 @@
 ---
-title: Pokémon x Beats Pill Speaker Drops Soon and It Looks Iconic
-description: The Pokémon x Beats Pill Bluetooth speaker is coming soon, blending Jigglypuff style with premium sound. Here is everything we know so far.
+title: "Pokémon x Beats Pill Speaker Drops Soon and It Looks Iconic"
+description: "The Pokémon x Beats Pill Bluetooth speaker is coming soon, blending Jigglypuff style with premium sound. Here is everything we know so far."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

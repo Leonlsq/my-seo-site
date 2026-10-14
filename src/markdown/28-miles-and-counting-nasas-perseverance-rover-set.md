@@ -1,6 +1,6 @@
 ---
-title: NASA Rover Just Shattered a 28-Mile Mars Record
-description: NASA Perseverance rover hits 28 miles on Mars, crushing driving records and revealing secrets of the Red Planet's ancient past.
+title: "NASA Rover Just Shattered a 28-Mile Mars Record"
+description: "NASA Perseverance rover hits 28 miles on Mars, crushing driving records and revealing secrets of the Red Planet's ancient past."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

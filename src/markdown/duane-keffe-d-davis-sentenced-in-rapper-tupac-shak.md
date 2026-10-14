@@ -1,6 +1,6 @@
 ---
-title: 'Tupac Murder: Keffe D Sentenced After 27-Year Mystery'
-description: 'Duane Keffe D Davis sentenced for his role in Tupac Shakurs 1996 murder. Inside the historic verdict, the evidence, and what it means.'
+title: "'Tupac Murder: Keffe D Sentenced After 27-Year Mystery'"
+description: "'Duane Keffe D Davis sentenced for his role in Tupac Shakurs 1996 murder. Inside the historic verdict, the evidence, and what it means.'"
 pubDate: 2026-10-13
 tags: ['Trending', 'News', 'True Crime']
 ---

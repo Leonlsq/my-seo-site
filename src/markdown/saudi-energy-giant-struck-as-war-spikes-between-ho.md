@@ -1,6 +1,6 @@
 ---
-title: Saudi Oil Under Fire: Houthi Strikes Ignite New War Fears
-description: Houthi strikes hit Saudi energy infrastructure as conflict escalates, rattling oil markets and raising fears of a wider regional war.
+title: "Saudi Oil Under Fire: Houthi Strikes Ignite New War Fears"
+description: "Houthi strikes hit Saudi energy infrastructure as conflict escalates, rattling oil markets and raising fears of a wider regional war."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

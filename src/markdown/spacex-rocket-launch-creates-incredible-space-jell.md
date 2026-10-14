@@ -1,6 +1,6 @@
 ---
-title: SpaceX's Space Jellyfish Lights Up the East Coast Sky
-description: SpaceX rocket launch creates incredible space jellyfish visible throughout US East Coast. See the photos, science, and why it stunned millions.
+title: "SpaceX's Space Jellyfish Lights Up the East Coast Sky"
+description: "SpaceX rocket launch creates incredible space jellyfish visible throughout US East Coast. See the photos, science, and why it stunned millions."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

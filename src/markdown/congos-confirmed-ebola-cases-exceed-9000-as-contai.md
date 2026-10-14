@@ -1,6 +1,6 @@
 ---
-title: Congo Ebola Outbreak Hits 9,000 Cases as Containment Falters
-description: Congo's confirmed Ebola cases surpass 9,000 as containment efforts collapse. Explore the crisis, its causes, and what comes next.
+title: "Congo Ebola Outbreak Hits 9,000 Cases as Containment Falters"
+description: "Congo's confirmed Ebola cases surpass 9,000 as containment efforts collapse. Explore the crisis, its causes, and what comes next."
 pubDate: 2026-10-14
 tags: ['Trending', 'Health', 'News']
 ---

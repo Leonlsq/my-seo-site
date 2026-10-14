@@ -1,6 +1,6 @@
 ---
-title: Time's Up for Leap Seconds? Why Experts Want to Kill Them
-description: Leap seconds have kept our clocks aligned with Earth since 1972. Now timekeepers want to abolish them forever. Here is why it matters.
+title: "Time's Up for Leap Seconds? Why Experts Want to Kill Them"
+description: "Leap seconds have kept our clocks aligned with Earth since 1972. Now timekeepers want to abolish them forever. Here is why it matters."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

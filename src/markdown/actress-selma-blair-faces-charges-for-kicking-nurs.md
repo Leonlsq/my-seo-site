@@ -1,6 +1,6 @@
 ---
-title: Selma Blair's In-Flight Meltdown Ends in Criminal Charges
-description: Actress Selma Blair faces battery charges after allegedly kicking a nurse and an officer during a chaotic post-flight incident.
+title: "Selma Blair's In-Flight Meltdown Ends in Criminal Charges"
+description: "Actress Selma Blair faces battery charges after allegedly kicking a nurse and an officer during a chaotic post-flight incident."
 pubDate: 2026-10-14
 tags: ['Trending', 'Celebrity News', 'Legal Analysis']
 ---

@@ -1,6 +1,6 @@
 ---
-title: Israel's Unshaken Politics After Oct. 7
-description: A deep analysis of how the Oct. 7 attack transformed Israeli society but left its political landscape surprisingly intact.
+title: "Israel's Unshaken Politics After Oct. 7"
+description: "A deep analysis of how the Oct. 7 attack transformed Israeli society but left its political landscape surprisingly intact."
 pubDate: 2026-10-13
 tags: ['Trending', 'News', 'Analysis']
 ---

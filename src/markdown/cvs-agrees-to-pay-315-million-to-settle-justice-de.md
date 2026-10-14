@@ -1,6 +1,6 @@
 ---
-title: CVS's $315 Million Opioid Settlement Explained
-description: CVS will pay $315 million to settle DOJ opioid claims. Here is what the deal means for pharmacies, patients, and the future of prescriptions.
+title: "CVS's $315 Million Opioid Settlement Explained"
+description: "CVS will pay $315 million to settle DOJ opioid claims. Here is what the deal means for pharmacies, patients, and the future of prescriptions."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

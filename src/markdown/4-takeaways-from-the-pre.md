@@ -1,6 +1,6 @@
 ---
-title: 4 Takeaways From the Pre-Order Chaos Everyone Missed
-description: We break down the 4 biggest takeaways from the pre-order frenzy that broke servers and reshaped how you buy games forever.
+title: "4 Takeaways From the Pre-Order Chaos Everyone Missed"
+description: "We break down the 4 biggest takeaways from the pre-order frenzy that broke servers and reshaped how you buy games forever."
 pubDate: 2026-10-13
 tags: ['Trending', 'Gaming', 'Analysis']
 ---

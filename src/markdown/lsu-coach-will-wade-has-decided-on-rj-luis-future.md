@@ -1,6 +1,6 @@
 ---
-title: Will Wade Ends RJ Luis Rumors With Bold 2026 Call
-description: LSU coach Will Wade has made his final decision on RJ Luis future for 2026, and the college basketball world is buzzing. Here is the full breakdown.
+title: "Will Wade Ends RJ Luis Rumors With Bold 2026 Call"
+description: "LSU coach Will Wade has made his final decision on RJ Luis future for 2026, and the college basketball world is buzzing. Here is the full breakdown."
 pubDate: 2026-10-14
 tags: ['Trending', 'Sports', 'College Basketball']
 ---

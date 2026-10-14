@@ -1,6 +1,6 @@
 ---
-title: Forget Rockets: Longshot's Space Gun Shoots Cargo Into Orbit
-description: Longshot Space is firing cargo into orbit with a giant gun, not a rocket. Here is how it works and why it matters for the future of space.
+title: "Forget Rockets: Longshot's Space Gun Shoots Cargo Into Orbit"
+description: "Longshot Space is firing cargo into orbit with a giant gun, not a rocket. Here is how it works and why it matters for the future of space."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---

@@ -1,6 +1,6 @@
 ---
-title: Why Pennsylvania Is Ground Zero for the US Measles Comeback
-description: Measles is spreading fast in Pennsylvania. Here is what is fueling the outbreak and why it matters for the rest of America.
+title: "Why Pennsylvania Is Ground Zero for the US Measles Comeback"
+description: "Measles is spreading fast in Pennsylvania. Here is what is fueling the outbreak and why it matters for the rest of America."
 pubDate: 2026-10-14
 tags: ['Trending', 'Health', 'News']
 ---

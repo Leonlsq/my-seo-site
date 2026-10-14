@@ -1,6 +1,6 @@
 ---
-title: 'Dodgers Benching Ohtani? The Truth Behind the Rumors'
-description: 'Is LA really considering benching Shohei Ohtani? We break down the slump, the rumors, and what the Dodgers are actually planning.'
+title: "'Dodgers Benching Ohtani? The Truth Behind the Rumors'"
+description: "'Is LA really considering benching Shohei Ohtani? We break down the slump, the rumors, and what the Dodgers are actually planning.'"
 pubDate: 2026-10-13
 tags: ['Trending', 'MLB', 'Dodgers', 'Shohei Ohtani', 'Sports Analysis']
 ---

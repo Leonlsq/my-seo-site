@@ -1,6 +1,6 @@
 ---
-title: Selma Blair's Delta Flight Meltdown: The Not Guilty Plea Explained
-description: Selma Blair pleads not guilty after a violent outburst on a Delta flight. Here is the full breakdown of the charges, the incident, and what happens next.
+title: "Selma Blair's Delta Flight Meltdown: The Not Guilty Plea Explained"
+description: "Selma Blair pleads not guilty after a violent outburst on a Delta flight. Here is the full breakdown of the charges, the incident, and what happens next."
 pubDate: 2026-10-13
 tags: ['Trending', 'Celebrity News', 'Legal Analysis']
 ---

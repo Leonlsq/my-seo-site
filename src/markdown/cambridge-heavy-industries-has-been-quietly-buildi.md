@@ -1,6 +1,6 @@
 ---
-title: The Secret Fusion Reactor Hiding in a Cambridge Basement
-description: Cambridge Heavy Industries quietly built a desktop fusion device, and it could reshape clean energy forever. Here is the full breakdown.
+title: "The Secret Fusion Reactor Hiding in a Cambridge Basement"
+description: "Cambridge Heavy Industries quietly built a desktop fusion device, and it could reshape clean energy forever. Here is the full breakdown."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

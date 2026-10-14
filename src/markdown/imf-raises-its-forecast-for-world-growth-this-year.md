@@ -1,6 +1,6 @@
 ---
-title: IMF Raises Global Growth Forecast but Warns AI and Debt Could Break It
-description: The IMF just upgraded its world growth outlook, yet flags AI hype and soaring debt as looming threats. Here is what it means for you.
+title: "IMF Raises Global Growth Forecast but Warns AI and Debt Could Break It"
+description: "The IMF just upgraded its world growth outlook, yet flags AI hype and soaring debt as looming threats. Here is what it means for you."
 pubDate: 2026-10-13
 tags: ['Trending', 'Tech', 'Guide']
 ---

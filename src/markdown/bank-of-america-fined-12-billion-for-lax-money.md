@@ -1,6 +1,6 @@
 ---
-title: Bank of America Hit With $1.2 Billion Fine: What Went Wrong
-description: Bank of America faces a massive $1.2 billion penalty over lax money laundering controls. Here is what happened and why it matters.
+title: "Bank of America Hit With $1.2 Billion Fine: What Went Wrong"
+description: "Bank of America faces a massive $1.2 billion penalty over lax money laundering controls. Here is what happened and why it matters."
 pubDate: 2026-10-14
 tags: ['Trending', 'Tech', 'Guide']
 ---
