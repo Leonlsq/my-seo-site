@@ -20,7 +20,6 @@ if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
 # 2. 聚焦高搜索意图（排障、教程、硬件、AI与极客工具）的垂直 RSS 源
-# 新增了 BleepingComputer、Tom's Hardware 和 Ars Technica，防止 GitHub 机房 IP 被 Reddit 限流时无米下锅
 RSS_FEEDS = [
     "https://techcrunch.com/feed/",
     "https://hnrss.org/newest?points=100",
@@ -43,11 +42,32 @@ def clean_html(raw_html):
     return re.sub(r'\s+', ' ', text)[:800]  # 截取前 800 字符作为核心背景，节省 Token
 
 
+def find_first_text(element, tags):
+    """安全获取第一个非空标签的文本，避开 ElementTree 的 or 布尔值陷阱"""
+    for tag in tags:
+        child = element.find(tag)
+        if child is not None and child.text:
+            return child.text.strip()
+    return ""
+
+
 def get_mixed_topics():
     """抓取所有候选话题并打乱顺序（不在此处截断数量，留到 main 中去重后再计数）"""
     print("🌐 正在从多个垂直领域抓取高价值话题与上下文...")
     items_data = []
     seen_titles = set()
+
+    title_tags = [
+        'title',
+        '{http://www.w3.org/2005/Atom}title'
+    ]
+    desc_tags = [
+        'description',
+        '{http://www.w3.org/2005/Atom}content',
+        '{http://www.w3.org/2005/Atom}summary',
+        'content',
+        '{http://purl.org/rss/1.0/modules/content/}encoded'
+    ]
 
     for url in RSS_FEEDS:
         # 针对 Reddit 使用符合其 API 规范的自定义 UA，降低 GitHub Actions 机房 IP 被 403 拦截的概率
@@ -73,22 +93,15 @@ def get_mixed_topics():
             )
 
             for entry in entries:
-                title_el = entry.find('title') or entry.find(
-                    '{http://www.w3.org/2005/Atom}title')
-                desc_el = (
-                    entry.find('description') or
-                    entry.find('{http://www.w3.org/2005/Atom}content') or
-                    entry.find('{http://www.w3.org/2005/Atom}summary') or
-                    entry.find('content')
-                )
+                raw_title = find_first_text(entry, title_tags)
+                raw_desc = find_first_text(entry, desc_tags)
 
-                if title_el is not None and title_el.text:
+                if raw_title:
+                    # 仅剔除标题末尾常见的 "| 网站名"，保留正文中正常的连字符 "-"
                     clean_title = re.sub(
-                        r'\s*[-|]\s*.*$', '', title_el.text).strip()
+                        r'\s*\|\s*[^|]+$', '', raw_title).strip()
                     if clean_title not in seen_titles and len(clean_title) > 15:
                         seen_titles.add(clean_title)
-                        raw_desc = desc_el.text if (
-                            desc_el is not None and desc_el.text) else ""
                         context_text = clean_html(raw_desc)
                         items_data.append({
                             "title": clean_title,
