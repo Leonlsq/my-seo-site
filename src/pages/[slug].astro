@@ -1,19 +1,28 @@
 ---
 export async function getStaticPaths() {
-  // 使用 Vite 底层的 import.meta.glob 同步加载文件
+  // 使用 Vite 底层的 import.meta.glob 同步加载所有文件
   const posts = Object.values(import.meta.glob('../markdown/*.md', { eager: true }));
   
-  return posts.map((post: any) => ({
+  // 按照日期降序排序，确保相关文章展示较新的内容
+  const sortedPosts = posts.sort((a: any, b: any) => {
+      const dateA = new Date(a.frontmatter?.pubDate || '1970-01-01').getTime();
+      const dateB = new Date(b.frontmatter?.pubDate || '1970-01-01').getTime();
+      return dateB - dateA;
+  });
+  
+  return sortedPosts.map((post: any) => ({
     params: { 
       slug: post.file.split('/').pop().replace('.md', '') 
     },
-    props: { post },
+    // 将当前文章和所有文章列表一起传递给组件
+    props: { post, allPosts: sortedPosts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 
-// 提取 Frontmatter 变量并做防空兜底
+// 提取当前文章的变量
+const currentSlug = post.file.split('/').pop().replace('.md', '');
 const title = post.frontmatter?.title || 'Tech Guide & Analysis';
 const description = post.frontmatter?.description || title;
 const pubDate = post.frontmatter?.pubDate || new Date().toISOString().split('T')[0];
@@ -21,6 +30,22 @@ const tags = Array.isArray(post.frontmatter?.tags) ? post.frontmatter.tags : [];
 
 // 自动拼接当前文章的完整 Canonical URL
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.scraping-trends.com').href;
+
+// ----- 核心修复：自动匹配“相关文章” -----
+const relatedPosts = allPosts
+  .filter((p: any) => p.file.split('/').pop().replace('.md', '') !== currentSlug) // 排除当前文章
+  .filter((p: any) => {
+      const pTags = Array.isArray(p.frontmatter?.tags) ? p.frontmatter.tags : [];
+      // 只要有一个 tag 相同，就认为是相关文章
+      return pTags.some((tag: string) => tags.includes(tag));
+  })
+  .slice(0, 3); // 截取前 3 篇最新的相关文章
+
+// 如果没有相同 tag 的文章，则随机或者取最新的 3 篇兜底
+const finalRelatedPosts = relatedPosts.length > 0 
+  ? relatedPosts 
+  : allPosts.filter((p: any) => p.file.split('/').pop().replace('.md', '') !== currentSlug).slice(0, 3);
+// ------------------------------------------
 
 // 构建 Google 官方标准的 Article JSON-LD 结构化数据
 const articleSchema = {
@@ -53,19 +78,16 @@ const articleSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
 
-    <!-- 核心 SEO Meta 标签（修复之前漏掉的 description 和 canonical） -->
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
-    <!-- 社交媒体与搜索引擎 Open Graph 标签 -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="article:published_time" content={pubDate} />
 
-    <!-- 注入 JSON-LD 结构化数据 -->
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 
     <!-- AdSense 代码 -->
@@ -86,7 +108,7 @@ const articleSchema = {
             padding: 30px 20px 10px 20px;
         }
         .nav a {
-            color: #0070f3;
+            color: #0969da;
             text-decoration: none;
             font-weight: 500;
         }
@@ -94,15 +116,14 @@ const articleSchema = {
             text-decoration: underline;
         }
         
-        /* 居中阅读区域，控制最大宽度保护眼睛 */
         .article-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 20px 40px;
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         .article-header {
@@ -114,6 +135,7 @@ const articleSchema = {
             font-size: 2.2rem;
             line-height: 1.3;
             margin-bottom: 15px;
+            color: #111;
         }
         .meta-info {
             color: #666;
@@ -132,7 +154,6 @@ const articleSchema = {
             font-weight: 500;
         }
 
-        /* 渲染出的 Markdown 正文样式 */
         .content h2 {
             margin-top: 40px;
             font-size: 1.6rem;
@@ -152,7 +173,6 @@ const articleSchema = {
             font-size: 1.1rem;
             margin-bottom: 10px;
         }
-        /* 新增：支持长尾对比文章的表格与代码块样式 */
         .content table {
             width: 100%;
             border-collapse: collapse;
@@ -174,6 +194,58 @@ const articleSchema = {
             border-radius: 8px;
             overflow-x: auto;
             font-size: 0.95rem;
+        }
+
+        /* 推荐文章模块样式 */
+        .related-container {
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+        .related-container h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #111;
+            border-top: 2px solid #eaeaea;
+            padding-top: 30px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .related-card {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+        }
+        .related-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            border-color: #d0d7de;
+        }
+        .related-card h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.05rem;
+            line-height: 1.4;
+            color: #1a1a1a;
+        }
+        .related-card p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -198,6 +270,26 @@ const articleSchema = {
             <post.Content />
         </div>
     </div>
+
+    <!-- 底部相关文章推荐 -->
+    {finalRelatedPosts.length > 0 && (
+        <div class="related-container">
+            <h3>Read Next</h3>
+            <div class="related-grid">
+                {finalRelatedPosts.map((rp: any) => {
+                    const rpSlug = rp.file.split('/').pop().replace('.md', '');
+                    const rpTitle = rp.frontmatter?.title || rpSlug;
+                    const rpDesc = rp.frontmatter?.description || '';
+                    return (
+                        <a href={`/${rpSlug}`} class="related-card">
+                            <h4>{rpTitle}</h4>
+                            <p>{rpDesc}</p>
+                        </a>
+                    )
+                })}
+            </div>
+        </div>
+    )}
 
     <footer style="text-align: center; padding: 30px 20px; border-top: 1px solid #eaeaea; color: #666; font-size: 0.9rem; background: #fff;">
         <p>© 2026 Scraping Trends. All rights reserved.</p>
